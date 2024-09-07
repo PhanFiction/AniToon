@@ -6,6 +6,20 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :bookmarks, only: [:index, :create, :destroy]
+
+    scope '/anime' do
+      get 'episodes/:id', to: 'animes#episodes'
+    end
+
+    resources :animes, path: 'anime', only: [:index] do
+      collection do
+        get 'info'
+        get 'search'
+        get 'genre'
+        get 'category'
+        get 'episode'
+      end
+    end
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
