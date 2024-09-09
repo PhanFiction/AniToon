@@ -1,8 +1,7 @@
-class CreateBookmarks < ActiveRecord::Migration[7.1]
+class CreateAnimes < ActiveRecord::Migration[7.1]
   def change
-    create_table :bookmarks do |t|
+    create_table :animes do |t|
 
-      t.references :user, foreign_key: true
       t.string :anime_id
       t.integer :mal_id
       t.string :name
