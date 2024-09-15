@@ -1,23 +1,22 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  
-  root 'homepage#index'
 
   namespace :api do
     resources :bookmarks, only: [:index, :create, :destroy]
 
     scope '/anime' do
       get 'episodes/:id', to: 'animes#episodes'
+      get 'genre/:id', to: 'animes#genre'
+      get 'category/:id', to: 'animes#category'
     end
 
     resources :animes, path: 'anime', only: [:index] do
       collection do
         get 'info'
         get 'search'
-        get 'genre'
-        get 'category'
         get 'episode'
+        get 'episode_server'
       end
     end
   end
@@ -27,5 +26,6 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root 'homepage#index'
+  get '/*path' => 'homepage#index'
 end
