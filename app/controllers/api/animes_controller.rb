@@ -3,7 +3,6 @@ require "rest-client"
 class Api::AnimesController < ApplicationController
   # Default home page.
   def index
-    p "api is #{$anitoon_api}"
     data = RestClient.get "#{$anitoon_api}/anime/home"
     render json: data
   end
