@@ -6,5 +6,7 @@ document.addEventListener("turbo:load", () => {
   const root = createRoot(
     document.getElementById('root')
   );
-  root.render(<App />);
+  root.render(
+    <App />
+  );
 });
