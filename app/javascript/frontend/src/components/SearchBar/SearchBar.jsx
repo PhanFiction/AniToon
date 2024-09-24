@@ -10,10 +10,10 @@ export default function SearchBar() {
   const openSlideRef = useRef(null);
 
   const styles = {
-    extend: "w-full opacity-0 md:-translate-y-2 peer-focus:translate-y-0 peer-focus:pointer-events-auto duration-200 peer-focus:opacity-100 absolute z-[500] left-0 rounded-lg border border-white-222 shadow-lg",
+    extend: "w-full opacity-0 md:-translate-y-2 peer-focus:translate-y-0 peer-focus:pointer-events-auto duration-200 peer-focus:opacity-100 absolute z-[100] left-0 rounded-lg border border-white-222 shadow-lg",
     hidden: "hidden",
     found: "divide-y divide-dashed md:flex md:flex-col bg-white md:bottom-auto absolute bottom-10 w-full h-96 overflow-y-scroll",
-    unknown: "divide-y divide-dashed md:flex md:flex-col bg-white md:bottom-auto absolute bottom-10 w-full p-4 h-12",
+    error: "divide-y divide-dashed md:flex md:flex-col bg-white md:bottom-auto absolute bottom-10 w-full p-4 h-12",
   }
 
   useEffect(() => {
@@ -49,6 +49,7 @@ export default function SearchBar() {
     inputRef.current.addEventListener('click', insideClick);
   }, [inputRef]);
 
+  // Reset the states and set searchBar to hidden when user clicks a link
   const handleClick = () => {
     setQuery('');
     setResult([]);
@@ -110,7 +111,7 @@ export default function SearchBar() {
         }
         {
           result.length < 1 && query.length > QUERY_MIN_LENGTH &&
-          <ul className={styles["unknown"]}>
+          <ul className={styles["error"]}>
             <p>No result found.</p>
           </ul>
         }
