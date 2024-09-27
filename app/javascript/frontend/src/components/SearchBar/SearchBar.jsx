@@ -10,7 +10,7 @@ export default function SearchBar() {
   const openSlideRef = useRef(null);
 
   const styles = {
-    extend: "w-full opacity-0 md:-translate-y-2 peer-focus:translate-y-0 peer-focus:pointer-events-auto duration-200 peer-focus:opacity-100 absolute z-[100] left-0 rounded-lg border border-white-222 shadow-lg",
+    extend: "w-full opacity-0 md:-translate-y-2 peer-focus:translate-y-0 peer-focus:pointer-events-auto duration-200 peer-focus:opacity-100 absolute z-[100] left-0 rounded-md",
     hidden: "hidden",
     found: "divide-y divide-dashed md:flex md:flex-col bg-white md:bottom-auto absolute bottom-10 w-full h-96 overflow-y-scroll",
     error: "divide-y divide-dashed md:flex md:flex-col bg-white md:bottom-auto absolute bottom-10 w-full p-4 h-12",
@@ -59,7 +59,7 @@ export default function SearchBar() {
   return (
     <div className="w-full md:w-80 relative" ref={openSlideRef}>
       <input
-        className="peer z-[21] px-6 py-2 rounded shadow-lg border-2 outline-none w-full"
+        className="peer z-[21] px-6 py-2 rounded-md shadow-lg border-2 outline-none w-full"
         color="white"
         size="xl"
         placeholder="Search anime..."
