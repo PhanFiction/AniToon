@@ -8,8 +8,7 @@ import Nav from "./components/Nav/Nav";
 
 /* 
 Todo
-  1. Figure out how to deal with suspending component on render when user clicks on different links 
-  2. Fix caption padding in VideoPlayer component
+  1. Fix caption padding in VideoPlayer component
 */
 
 const Home = lazy(() => import('./pages/Home'));
