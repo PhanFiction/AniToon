@@ -9,7 +9,7 @@ export default function SearchBar() {
   const inputRef = useRef(null);
   const openSlideRef = useRef(null);
 
-  const styles = {
+  const searchBarStyles = {
     extend: "w-full opacity-0 md:-translate-y-2 peer-focus:translate-y-0 peer-focus:pointer-events-auto duration-200 peer-focus:opacity-100 absolute z-[100] left-0 rounded-md",
     hidden: "hidden",
     found: "divide-y divide-dashed md:flex md:flex-col bg-white md:bottom-auto absolute bottom-10 w-full h-96 overflow-y-scroll",
@@ -22,9 +22,9 @@ export default function SearchBar() {
         const queryData = await fetch(`/api/anime/search?query=${query}`);
         const queryResult = await queryData.json();
         setResult(queryResult.suggestions);
-        toggleRef.current.className = styles['extend'];
+        toggleRef.current.className = searchBarStyles['extend'];
       } else {
-        toggleRef.current.className = styles['hidden'];
+        toggleRef.current.className = searchBarStyles['hidden'];
       }
     }
     searchQuery();
@@ -35,13 +35,13 @@ export default function SearchBar() {
       if (inputRef.current.contains(e.target)) {
         // return element that was involved in the event and the element is close to the <a> tag
         const linkElement = e.relatedTarget && e.relatedTarget.closest('a');
-        if (!linkElement) toggleRef.current.className = styles['hidden'];
+        if (!linkElement) toggleRef.current.className = searchBarStyles['hidden'];
       }
     };
 
     const insideClick = (e) => {
       e.stopImmediatePropagation(); // prevent outside clicking
-      toggleRef.current.className = styles['extend']; // Hide the dropdown
+      toggleRef.current.className = searchBarStyles['extend']; // Hide the dropdown
     }
   
     // Add event listeners
@@ -53,13 +53,13 @@ export default function SearchBar() {
   const handleClick = () => {
     setQuery('');
     setResult([]);
-    toggleRef.current.className = styles['hidden'];
+    toggleRef.current.className = searchBarStyles['hidden'];
   }
 
   return (
     <div className="w-full md:w-80 relative" ref={openSlideRef}>
       <input
-        className="peer z-[21] px-6 py-2 rounded-md shadow-lg border-2 outline-none w-full"
+        className="peer z-[10] px-6 py-2 rounded-md shadow-lg border-2 outline-none w-full"
         color="white"
         size="xl"
         placeholder="Search anime..."
@@ -83,10 +83,10 @@ export default function SearchBar() {
       </svg>
 
       {/* Drop Down content */}
-      <div className={styles["hidden"]} ref={toggleRef}>
+      <div className={searchBarStyles["hidden"]} ref={toggleRef}>
         {
           result.length > 1 && query.length > QUERY_MIN_LENGTH &&
-          <ul className={styles["found"]}>
+          <ul className={searchBarStyles["found"]}>
             {
               result.map(item =>
                 <Link to={`/anime/info?id=${item.id}`} className="p-2 cursor-pointer text-sm hover:bg-red-100" key={item.id} onClick={handleClick}>
@@ -111,7 +111,7 @@ export default function SearchBar() {
         }
         {
           result.length < 1 && query.length > QUERY_MIN_LENGTH &&
-          <ul className={styles["error"]}>
+          <ul className={searchBarStyles["error"]}>
             <p>No result found.</p>
           </ul>
         }
