@@ -5,10 +5,6 @@ import logo from '../../../assets/logo.png';
 import MobileNav from './MobileNav';
 import Sidebar from './Sidebar';
 
-const genres = ["Action", "Adventure", "Cars", "Comedy", "Dementia", "Demons", "Drama", "Ecchi", "Fantasy", "Game", "Harem", "Historical", "Horror", "Josei", "Magic", "Mecha", "Isekai", "Kids", "Martial Arts", "Military", "Music", "Mystery", "Police", "Parody", "Psychological", "Romance", "Samurai", "School", "Sci-Fi", "Seinen", "Shoujo", "Shoujo Ai", "Shounen", "Shounen Ai", "Slice of Life", "Space", "Sports", "Super Power", "Supernatural", "Thriller", "Vampire"];
-
-const categories = ["Home", "Subbed Anime", "Dubbed Anime", "Most Popular", "Movies", "Specials", "OVA's", "ONA's", "TV"];
-
 export default function Nav() {
   const [isSearchbarOpen, setToggleSearchbar] = useState(false);
   const [isSidebarOpen, setToggleSidebar] = useState(false);
@@ -17,12 +13,12 @@ export default function Nav() {
   const toggleSidebar = () => setToggleSidebar(!isSidebarOpen);
 
   return (
-    <nav className="relative bg-black p-4 flex flex-col md:flex-row items-center gap-4">
+    <nav className="fixed top-0 w-screen bg-bluePurple p-4 flex flex-row items-center gap-4 z-20 text-black">
     
       <label className="flex flex-col gap-2 w-8 hover:cursor-pointer" onClick={toggleSidebar}>
-        <div className="rounded-2xl h-[3px] w-1/2 bg-white duration-500 peer-checked:rotate-[225deg] origin-right peer-checked:-translate-x-[12px] peer-checked:-translate-y-[1px]" />
+        <div className="rounded-2xl h-[3px] w-1/2 bg-white duration-500 origin-right" />
         <div className="rounded-2xl h-[3px] w-full bg-white duration-500 peer-checked:-rotate-45" />
-        <div className="rounded-2xl h-[3px] w-1/2 bg-white duration-500 place-self-end peer-checked:rotate-[225deg] origin-left peer-checked:translate-x-[12px] peer-checked:translate-y-[1px]" />
+        <div className="rounded-2xl h-[3px] w-1/2 bg-white duration-500 place-self-end origin-left" />
       </label>
 
       <Sidebar toggle={isSidebarOpen} handleClick={toggleSidebar}/>
@@ -44,7 +40,7 @@ export default function Nav() {
         </div>
       }
 
-      <div className="fixed bottom-0 w-full md:hidden md:opactity-0">
+      <div className="fixed left-0 bottom-0 w-full md:hidden md:opactity-0">
         <MobileNav handleClick={toggleSearchbar} />
       </div>
       
