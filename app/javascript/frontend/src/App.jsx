@@ -21,7 +21,7 @@ function App() {
   return (
     <BrowserRouter>
       <Nav />
-      <div className="mb-20 mt-28">
+      <div className="my-20">
         <Routes>
           <Route
             path="/anime/category/:id"
