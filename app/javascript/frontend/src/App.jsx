@@ -8,8 +8,9 @@ import Nav from "./components/Nav/Nav";
 
 /* 
 Todo
-  1. Figure out how to deal with suspending component on render when user clicks on different links 
-  2. Fix caption padding in VideoPlayer component
+  * In Episode component, find a way to let client choose between hd-1, hd-2, Sub and Dub
+  * In Episode component, figure a way to automatically set between available hd-1 and hd-2
+  * Fix caption padding in VideoPlayer component
 */
 
 const Home = lazy(() => import('./pages/Home'));
@@ -70,21 +71,3 @@ function App() {
 }
 
 export default App;
-
-/* function App() {
-  return (
-    <BrowserRouter>
-    <Nav />
-    <div className="mb-20 mt-28">
-      <Routes>
-        <Route path="/anime/category/:id" element={<Categorization />} />
-        <Route path="/anime/genre/:id" element={<Categorization />} />
-        <Route path="/anime/watch/:id" element={<Episode />} />
-        <Route path="/anime/info" element={<Anime />} />
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </div>
-    </BrowserRouter>
-  );
-}
- */
