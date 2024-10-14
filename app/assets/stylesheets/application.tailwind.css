@@ -160,3 +160,9 @@ body {
     height: 6px;
   }
 }
+
+/* https://stackoverflow.com/questions/41317044/need-help-styling-subtitles-on-html5-using-the-track-element */
+/* Styling for video captions */
+video::-webkit-media-text-track-container {
+  transform: translateY(-10%) !important;
+}
