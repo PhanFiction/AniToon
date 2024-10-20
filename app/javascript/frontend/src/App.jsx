@@ -13,8 +13,6 @@ Todo
 =======
   * In Episode component, find a way to let client choose between hd-1, hd-2, Sub and Dub
   * In Episode component, figure a way to automatically set between available hd-1 and hd-2
-  * Fix caption padding in VideoPlayer component
->>>>>>> frontend-feature
 */
 
 const Home = lazy(() => import('./pages/Home'));
