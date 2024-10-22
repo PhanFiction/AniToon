@@ -19,6 +19,9 @@ const Home = lazy(() => import('./pages/Home'));
 const Categorization = lazy(() => import('./pages/Categorization'));
 const Episode = lazy(() => import('./pages/Episode'));
 const Anime = lazy(() => import('./pages/Anime'));
+const SignUp = lazy(() => import('./pages/SignUp'));
+const Login = lazy(() => import('./pages/Login'));
+const Bookmarks = lazy(() => import('./pages/Bookmarks'));
 
 function App() {
   return (
@@ -55,6 +58,30 @@ function App() {
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <Anime />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <SignUp />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Login />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/bookmarks"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Bookmarks />
               </Suspense>
             }
           />
