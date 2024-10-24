@@ -1,10 +1,6 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import React, { lazy, Suspense } from 'react';
 import Nav from "./components/Nav/Nav";
-// import Home from "./pages/Home";
-// import Episode from "./pages/Episode";
-// import Anime from "./pages/Anime";
-// import Categorization from "./pages/Categorization";
 
 /* 
 Todo
@@ -21,15 +17,37 @@ const Login = lazy(() => import('./pages/Login'));
 const Bookmarks = lazy(() => import('./pages/Bookmarks'));
 
 function App() {
+  const location = useLocation();
+
+  // Determine if the current path is either /signup or /login
+  // This will add margin to pages that is not signup and login
+  const isAuthRoute = location.pathname === '/signup' || location.pathname === '/login';
+
   return (
-    <BrowserRouter>
+    <>
       <Nav />
-      <div className="my-20">
+      <div className={isAuthRoute ? '' : 'my-20'}>
         <Routes>
+          <Route
+            path="/signup"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <SignUp />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Login />
+              </Suspense>
+            }
+          />
           <Route
             path="/anime/category/:id"
             element={
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<div>Loading...</div>} className="my-20">
                 <Categorization />
               </Suspense>
             }
@@ -59,22 +77,6 @@ function App() {
             }
           />
           <Route
-            path="/signup"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <SignUp />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <Login />
-              </Suspense>
-            }
-          />
-          <Route
             path="/bookmarks"
             element={
               <Suspense fallback={<div>Loading...</div>}>
@@ -92,7 +94,7 @@ function App() {
           />
         </Routes>
       </div>
-    </BrowserRouter>
+    </>
   );
 }
 
