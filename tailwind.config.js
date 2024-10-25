@@ -3,14 +3,14 @@ module.exports = {
     './app/views/**/*.html.erb',
     './app/helpers/**/*.rb',
     './app/assets/stylesheets/**/*.css',
-    './app/javascript/**/*.js',
-    './app/javascript/**/*.jsx'
+    './app/javascript/**/*.{js,jsx,ts,tsx}',
+    "./node_modules/rc-pagination/**/*.css"
   ],
   theme: {
     extend: {
-      fontFamily: {
+/*       fontFamily: {
         sans: ["SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace],
-      },
+      }, */
       backgroundImage: {
         'gradient-white': 'linear-gradient(180deg, rgba(255, 255, 255, 0.10126057258841037) 0, rgba(255, 255, 255, 0) 100%)',
       },
@@ -37,8 +37,10 @@ module.exports = {
         light: '#f8f9fa',
         dark: '#343a40',
         bluePurple: '#2d2b44',
+        blueViolet: '#2b2a42',
         darkBluePurple: '#201f31',
-        'white-05': 'rgba(255, 255, 255, 0.05)',
+        midnightBlue: '#191826',
+        nearBlackIndigo: '#11101a',
       }
     },
   },
