@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   namespace :api do
+    get 'user_signed_in', to: 'users#user_signed_in'
     resources :bookmarks, only: [:index, :create, :destroy]
 
     scope '/anime' do
