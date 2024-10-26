@@ -15,13 +15,14 @@ const Anime = lazy(() => import('./pages/Anime'));
 const SignUp = lazy(() => import('./pages/SignUp'));
 const Login = lazy(() => import('./pages/Login'));
 const Bookmarks = lazy(() => import('./pages/Bookmarks'));
+const AccountSettings = lazy(() => import('./pages/AccountSettings'));
 
 function App() {
   const location = useLocation();
 
   // Determine if the current path is either /signup or /login
   // This will add margin to pages that is not signup and login
-  const isAuthRoute = location.pathname === '/signup' || location.pathname === '/login';
+  const isAuthRoute = location.pathname === '/signup' || location.pathname === '/login' || location.pathname === '/account_settings';
 
   return (
     <>
@@ -81,6 +82,14 @@ function App() {
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <Bookmarks />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/account_settings"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <AccountSettings />
               </Suspense>
             }
           />
