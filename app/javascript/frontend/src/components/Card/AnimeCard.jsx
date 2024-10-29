@@ -1,10 +1,9 @@
 import React from 'react';
 
-export default function Card({ showType, backgroundImg, title }){
+export default function AnimeCard ({ showType="", backgroundImg="", title="" }) {
   return (
     <article className="w-full h-full group">
-      <div className="flex flex-col relative h-full mb-2 group bg-darkBluePurple text-lime-300 hover:-translate-y-1 duration-500"
-      >
+      <div className="flex flex-col relative h-full mb-2 group bg-darkBluePurple text-lime-300">
         <div className="w-full h-full absolute left-0 top-0 rounded-md group-hover:bg-[#8988885c] group-hover:backdrop-blur-[6px] duration-500">
           <p className="font-bold absolute bottom-2 left-2 opacity-0 duration-300 group-hover:opacity-100">{showType}</p>
           {/* Center Icon */}
@@ -30,8 +29,6 @@ export default function Card({ showType, backgroundImg, title }){
               </clipPath>
             </defs>
           </svg>
-          {/* Add to Wish List Icon */}
-          <svg className="absolute top-2 right-2 opacity-0 duration-300 group-hover:opacity-100" stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1.2em" width="1.2em" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0z"></path><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path></svg>
         </div>
         <img src={backgroundImg} alt={backgroundImg} className="w-full h-full object-cover rounded-md" />
       </div>
