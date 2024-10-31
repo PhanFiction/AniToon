@@ -4,8 +4,10 @@ import Nav from "./components/Nav/Nav";
 
 /* 
 Todo
-  * In Episode component, find a way to let client choose between hd-1, hd-2, Sub and Dub
-  * In Episode component, figure a way to automatically set between available hd-1 and hd-2
+  1. Add autoplay feauture
+  2. Add skip intro and ending song
+  3. Add highlight feature to show which player is selected when Episode component is loaded
+  4. Add seasons to the Anime episode component for users to select
 */
 
 const Home = lazy(() => import('./pages/Home'));
