@@ -16,13 +16,14 @@ export default function Paginate({ pages=1 }) {
   return (
     <div className="flex justify-center text-red">
       <Pagination
-        className="mt-8"
+        className="mt-8 rc-pagnation-item"
         onChange={handlePageChange}
         defaultCurrent={currentPage}
         pageSize={1}
         total={pages}
         onShowSizeChange={false}
         showPrevNextJumpers={false}
+        style={{color: '#fff' }}
       />
     </div>
   )
