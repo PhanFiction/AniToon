@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import ReactPlayer from 'react-player';
 
 export default function VideoPlayer({ video, captions }) {
@@ -20,9 +20,7 @@ export default function VideoPlayer({ video, captions }) {
  */
 
   const emptyVideo = () => (
-    <div className="w-full h-full">
-
-    </div>
+    <div className="w-full h-full"></div>
   )
 
   return (
@@ -35,8 +33,6 @@ export default function VideoPlayer({ video, captions }) {
           tracks: captions,
         },
       }}
-      onReady={() => console.log('ready ')}
-      onStart={() => console.log('start ')}
       url={video}
       fallback={emptyVideo()}
       controls={true}
