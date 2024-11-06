@@ -1,6 +1,8 @@
+import React, { useState, lazy, Suspense } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import React, { lazy, Suspense } from 'react';
 import Nav from "./components/Nav/Nav";
+import Alert from './components/Alert';
+import { AlertContext } from './context';
 
 /* 
 Todo
@@ -14,41 +16,41 @@ const Home = lazy(() => import('./pages/Home'));
 const Categorization = lazy(() => import('./pages/Categorization'));
 const Episode = lazy(() => import('./pages/Episode'));
 const Anime = lazy(() => import('./pages/Anime'));
-const SignUp = lazy(() => import('./pages/SignUp'));
-const Login = lazy(() => import('./pages/Login'));
-const Bookmarks = lazy(() => import('./pages/Bookmarks'));
+const WatchList = lazy(() => import('./pages/WatchList'));
 const AccountSettings = lazy(() => import('./pages/AccountSettings'));
 
 function App() {
   const location = useLocation();
+  const [alertType, setAlertType] = useState('');
+  const [alertMessage, setAlertMessage] = useState('');
 
   // Determine if the current path is either /signup or /login
   // This will add margin to pages that is not signup and login
-  const isAuthRoute = location.pathname === '/signup' || location.pathname === '/login' || location.pathname === '/account_settings';
+  const isAuthRoute = location.pathname === '/account_settings';
 
   return (
-    <>
+    <AlertContext.Provider 
+      value={{
+        alertType,
+        alertMessage,
+        setAlertMessage,
+        setAlertType
+      }}
+    >
+      <Alert />
       <Nav />
       <div className={isAuthRoute ? '' : 'my-20'}>
         <Routes>
           <Route
-            path="/signup"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <SignUp />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <Login />
-              </Suspense>
-            }
-          />
-          <Route
             path="/anime/category/:id"
+            element={
+              <Suspense fallback={<div>Loading...</div>} className="my-20">
+                <Categorization />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/anime/search"
             element={
               <Suspense fallback={<div>Loading...</div>} className="my-20">
                 <Categorization />
@@ -80,10 +82,10 @@ function App() {
             }
           />
           <Route
-            path="/bookmarks"
+            path="/watchlist"
             element={
               <Suspense fallback={<div>Loading...</div>}>
-                <Bookmarks />
+                <WatchList />
               </Suspense>
             }
           />
@@ -105,7 +107,7 @@ function App() {
           />
         </Routes>
       </div>
-    </>
+    </AlertContext.Provider>
   );
 }
 
