@@ -32,9 +32,9 @@ function App() {
     <AlertContext.Provider 
       value={{
         alertType,
+        setAlertType,
         alertMessage,
         setAlertMessage,
-        setAlertType
       }}
     >
       <Alert />
