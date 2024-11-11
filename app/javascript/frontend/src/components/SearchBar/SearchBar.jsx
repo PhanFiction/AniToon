@@ -12,14 +12,15 @@ export default function SearchBar() {
   const searchBarStyles = {
     extend: "w-full opacity-0 md:-translate-y-2 peer-focus:translate-y-0 peer-focus:pointer-events-auto duration-200 peer-focus:opacity-100 absolute z-[100] left-0 rounded-md",
     hidden: "hidden",
-    found: "divide-y divide-dashed md:flex md:flex-col bg-white md:bottom-auto absolute bottom-10 w-full h-96 overflow-y-scroll",
-    error: "divide-y divide-dashed md:flex md:flex-col bg-white md:bottom-auto absolute bottom-10 w-full p-4 h-12",
+    found: "divide-y divide-dashed md:flex md:flex-col bg-white md:bottom-auto absolute w-full h-96 overflow-y-scroll",
+    error: "divide-y divide-dashed md:flex md:flex-col bg-white md:bottom-auto absolute w-full p-4 h-12",
   }
 
   useEffect(() => {
+    // Query for anime results
     const searchQuery = async () => {
       if (query.length > QUERY_MIN_LENGTH) {
-        const queryData = await fetch(`/api/anime/search?query=${query}`);
+        const queryData = await fetch(`/api/anime/search_suggest?query=${query}`);
         const queryResult = await queryData.json();
         setResult(queryResult.suggestions);
         toggleRef.current.className = searchBarStyles['extend'];
@@ -107,6 +108,9 @@ export default function SearchBar() {
                 </Link>
               )
             }
+            <Link to={`/anime/search?query=${query}&page=1`} className="p-2 cursor-pointer text-sm hover:bg-red-100" onClick={handleClick}>
+              View Results
+            </Link>
           </ul>
         }
         {
