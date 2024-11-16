@@ -1,8 +1,15 @@
 # README
 
-# Challenges encountered
-1. Captions for video not in sync
-2. 
+# To run the project locally 
+1. run bundle install
+2. rails db:create then rails db:migrate
+
+
+## Future implementations
+1. Fix Captions for video not in sync
+2. Add feature to allow groups of people to stream anime together
+3. Add comment section for the anime
+4. Update homepage layout
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
