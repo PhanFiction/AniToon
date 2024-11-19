@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       collection do
         get 'info'
         get 'search'
+        get 'search_suggest'
         get 'episode'
         get 'episode_server'
       end
