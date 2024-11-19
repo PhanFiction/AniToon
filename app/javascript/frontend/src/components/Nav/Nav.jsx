@@ -34,7 +34,9 @@ export default function Nav() {
     fetchUser ();
   }, []);
 
+  // Toggle Searchbar function
   const toggleSearchbar = () => setToggleSearchbar(!isSearchbarOpen);
+  // Toggle Sidebar function
   const toggleSidebar = () => setToggleSidebar(!isSidebarOpen);
 
   const handleLogout = async () => {
