@@ -4,7 +4,6 @@
 1. run bundle install
 2. rails db:create then rails db:migrate
 
-
 ## Future implementations
 1. Fix Captions for video not in sync
 2. Add feature to allow groups of people to stream anime together
