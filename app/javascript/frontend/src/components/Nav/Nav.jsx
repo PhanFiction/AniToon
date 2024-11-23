@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import SearchBar from '../SearchBar/SearchBar';
 import { Link } from 'react-router-dom';
 import logo from '../../../assets/logo.png';
