@@ -90,7 +90,7 @@ export default function Nav() {
           user.length > 0 ?
           <div className="relative ml-auto mr-5">
             <button onClick={() => {setToggleDropDown(!isDropDownOpen)}}>
-              <img src="https://cdn.noitatnemucod.net/avatar/100x100/zoro_normal/av-zz-07.jpeg" alt="profile" className="rounded-full w-10 h-10"/>
+              <img src="https://cdn.noitatnemucod.net/avatar/100x100/jujutsu_kaisen/File14.png" alt="profile" className="rounded-full w-10 h-10"/>
             </button>
             <div
               className={`${isDropDownOpen ? 'block' : 'hidden'} absolute right-0 z-10 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
