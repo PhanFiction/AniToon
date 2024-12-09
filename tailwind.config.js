@@ -27,6 +27,7 @@ module.exports = {
         cyan: '#17a2b8',
         white: '#fff',
         gray: '#6c757d',
+        lightGray: "#cccccc",
         grayDark: '#343a40',
         primary: '#007bff',
         secondary: '#6c757d',
