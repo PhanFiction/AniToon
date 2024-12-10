@@ -6,39 +6,21 @@ import Sidebar from './Sidebar';
 import fetchCSRFToken from '../../utils/fetchCSRFToken';
 import { CiSearch } from "react-icons/ci";
 import { AlertContext } from '../../context';
+import useFetchUser from '../../hooks/useFetchUser';
 
 export default function Nav() {
   const [isSearchbarOpen, setToggleSearchbar] = useState(false);
   const [isSidebarOpen, setToggleSidebar] = useState(false);
   const [isDropDownOpen, setToggleDropDown] = useState(false);
-  const [user, setUser] = useState([]);
+  const { user } = useFetchUser();
   const { setAlertType, setAlertMessage } = useContext(AlertContext);
-
-  useEffect(() => {
-    const fetchUser  = async () => {
-      try {
-        const response = await fetch('/api/user_signed_in', {
-          credentials: 'include', // Include cookies for authentication
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          //console.log(data);
-          setUser([data]);
-        }
-      } catch (error) {
-        console.error('Error fetching user:', error);
-      }
-    };
-
-    fetchUser ();
-  }, []);
 
   // Toggle Searchbar function
   const toggleSearchbar = () => setToggleSearchbar(!isSearchbarOpen);
   // Toggle Sidebar function
   const toggleSidebar = () => setToggleSidebar(!isSidebarOpen);
 
+  // Logs user out but needs the CSRF token for ruby backend
   const handleLogout = async () => {
     try {
       const csrfToken = fetchCSRFToken() // Fetch CSRF token
@@ -87,7 +69,7 @@ export default function Nav() {
 
         {/* Display user profile if user is logged in */}
         {
-          user.length > 0 ?
+          user ?
           <div className="relative ml-auto mr-5">
             <button onClick={() => {setToggleDropDown(!isDropDownOpen)}}>
               <img src="https://cdn.noitatnemucod.net/avatar/100x100/zoro_normal/av-zz-07.jpeg" alt="profile" className="rounded-full w-10 h-10"/>
