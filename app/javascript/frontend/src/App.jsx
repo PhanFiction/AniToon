@@ -17,7 +17,6 @@ const Categorization = lazy(() => import('./pages/Categorization'));
 const Episode = lazy(() => import('./pages/Episode'));
 const Anime = lazy(() => import('./pages/Anime'));
 const WatchList = lazy(() => import('./pages/WatchList'));
-const AccountSettings = lazy(() => import('./pages/AccountSettings'));
 
 function App() {
   const location = useLocation();
@@ -86,14 +85,6 @@ function App() {
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <WatchList />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/account_settings"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <AccountSettings />
               </Suspense>
             }
           />
