@@ -2,8 +2,7 @@ class Api::BookmarksController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    user = User.find(current_user.id)
-    bookmarks = user.bookmarks
+    bookmarks = Bookmark.find_bookmark(current_user.id)
     render json: bookmarks
   end
 
