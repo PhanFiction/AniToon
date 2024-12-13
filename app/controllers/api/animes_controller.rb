@@ -4,20 +4,42 @@ class Api::AnimesController < ApplicationController
   # Default home page.
   def index
     data = RestClient.get "#{$anitoon_api}/anime/home"
-    render json: data
+    json_data = JSON.parse(data)
+    
+    if current_user
+      user = User.find(current_user.id)
+      bookmarks = user.bookmarks
+      found_bookmark = Bookmark.find_bookmark(current_user.id)
+      render json: { data: json_data, watch_list: found_bookmark }
+    else
+      render json: { data: json_data }
+    end
   end
 
-  # https://anitoonapi.vercel.app/anime/info?id={anime-id}
+  # https://api-aniwatch.onrender.com/anime/info?id={anime-id}
   # Returns information about the anime.
   def info
     data = RestClient.get "#{$anitoon_api}/anime/info?id=#{params[:id]}"
     json_data = JSON.parse(data)
-    render json: json_data["anime"]
+
+    if current_user
+      user = User.find(current_user.id)
+      bookmarks = user.bookmarks
+      found_bookmark = Bookmark.find_bookmark(current_user.id, params[:id])
+      render json: { data: json_data["anime"], watch_list: found_bookmark }
+    else
+      render json: { data: json_data["anime"] }
+    end
   end
 
   # https://api-aniwatch.onrender.com/anime/search/suggest?q={query}
   # Query for anime.
   def search
+    data = RestClient.get "#{$anitoon_api}/anime/search?q=#{params[:query]}"
+    render json: data
+  end
+
+  def search_suggest
     data = RestClient.get "#{$anitoon_api}/anime/search/suggest?q=#{params[:query]}"
     render json: data
   end
@@ -28,14 +50,32 @@ class Api::AnimesController < ApplicationController
     # genre_types = ["Action", "Adventure", "Cars", "Comedy", "Dementia", "Demons", "Drama", "Ecchi", "Fantasy", "Game", "Harem", "Historical", "Horror", "Josei", "Magic", "Mecha", "Isekai", "Kids", "Martial Arts", "Military", "Music", "Mystery", "Police", "Parody", "Psychological", "Romance", "Samurai", "School", "Sci-Fi", "Seinen", "Shoujo", "Shoujo Ai", "Shounen", "Shounen Ai", "Slice of Life", "Space", "Sports", "Super Power", "Supernatural", "Thriller", "Vampire"]
 
     data = RestClient.get "#{$anitoon_api}/anime/genre/#{params[:id]}?page=#{params[:page]}"
-    render json: data
+    json_data = JSON.parse(data)
+    
+    if current_user
+      user = User.find(current_user.id)
+      bookmarks = user.bookmarks
+      found_bookmark = Bookmark.find_bookmark(current_user.id)
+      render json: { data: json_data, watch_list: found_bookmark }
+    else
+      render json: { data: json_data }
+    end
   end
 
   # https://api-aniwatch.onrender.com/anime/{category}?page={page}
   # categories -> "most-favorite", "most-popular", "subbed-anime", "dubbed-anime", "recently-updated", "recently-added", "top-upcoming", "top-airing", "movie", "special", "ova", "ona", "tv", "completed"
   def category
     data = RestClient.get "#{$anitoon_api}/anime/#{params[:id]}?page=#{params[:page]}"
-    render json: data
+    json_data = JSON.parse(data)
+    
+    if current_user
+      user = User.find(current_user.id)
+      bookmarks = user.bookmarks
+      found_bookmark = Bookmark.find_bookmark(current_user.id)
+      render json: { data: json_data, watch_list: found_bookmark }
+    else
+      render json: { data: json_data }
+    end
   end
 
   # https://api-aniwatch.onrender.com/anime/episodes/{animeId}
