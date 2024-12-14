@@ -1,25 +1,30 @@
-import React, { useState, useEffect, startTransition } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Loading from '../components/Loading';
-import Card from '../components/Card';
+import AnimeItem from '../components/Card/AnimeItem';
+import Paginate from '../components/Paginate';
+
 export default function Categorization() {
   const location = useLocation();
   const entireUrl = location.pathname + location.search;
   const [currentCategory, setCategory] = useState({});
   const [loading, setLoading] = useState(true);
+  const [watchList, setWatchList] = useState([]);
   const abortController = new AbortController();
+  const query = location.pathname === '/anime/search' ? location.search.split("?query=")[1].split("&page=")[0] : '';
 
   useEffect(() => {
-    startTransition(() => {
-      const fetchCategory = async () => {
-        const res = await fetch(`/api${entireUrl}`);
-        const categoryData = await res.json();
-        console.log(categoryData);
-        setLoading(false);
-        setCategory({...categoryData});
-      }
-      fetchCategory();
-    });
+    const fetchCategory = async () => {
+      const res = await fetch(`/api${entireUrl}`);
+      const categoryData = await res.json();
+      // console.log(location.pathname, location.search);
+      // console.table(categoryData);
+      setLoading(false);
+      location.pathname === '/anime/search' ? setCategory({...categoryData}) : setCategory({...categoryData.data});;
+      if (categoryData.watch_list?.length > 0) setWatchList(categoryData.watch_list);
+    }
+    
+    fetchCategory();
     
     return () => {
       setLoading(true);
@@ -27,26 +32,46 @@ export default function Categorization() {
     };
   }, [location.pathname, location.search]);
 
-  const handleClick = () => {
-    abortController.abort();
-  };
-
   return (
     <section className="p-2 md:p-4">
-      <div className="flex flex-col justify-start">
-        <h1 className="text-2xl font-bold mb-4 w-48 p-2">{currentCategory.category ? currentCategory.category : currentCategory.genreName}</h1>
-        <div className="flex flex-wrap justify-center gap-4">
-          {
-            loading
-            ? <Loading />
-            : currentCategory.animes && currentCategory?.animes.map(item =>
-              <Link to={`/anime/info?id=${item.id}`} key={item.id} onClick={handleClick} className="flex w-32 h-52 md:w-44 lg:h-64 mb-8 z-10">
-                <Card showType={item.type} backgroundImg={item.poster} title={item.jname} />
-              </Link>
-            )
-          }
+      {
+        location.pathname === '/anime/search' ?
+        <>
+          <div className="flex flex-col justify-start">
+            <h1 className="text-2xl font-bold mb-4 w-full p-2">
+              Search results for: { query }
+            </h1>
+            <div className="flex flex-wrap justify-center gap-4">
+              {
+                loading
+                ? <Loading />
+                : currentCategory.animes && currentCategory?.animes.map(item =>
+                  <AnimeItem item={item} key={item.id} bookmarked={watchList}/>
+                )
+              }
+            </div>
+          </div>
+          <Paginate pages={currentCategory.totalPages} />
+        </>
+      :
+      <>
+        <div className="flex flex-col">
+          <h1 className="text-2xl font-bold mb-4 w-full p-2">
+            {currentCategory.category ? currentCategory.category : currentCategory.genreName}
+          </h1>
+          <div className="flex flex-wrap justify-center gap-4">
+            {
+              loading
+              ? <Loading />
+              : currentCategory.animes && currentCategory?.animes.map(item =>
+                <AnimeItem item={item} key={item.id} bookmarked={watchList}/>
+              )
+            }
+          </div>
         </div>
-      </div>
+        <Paginate pages={currentCategory.totalPages} />
+      </>
+      }
     </section>
   )
 }
