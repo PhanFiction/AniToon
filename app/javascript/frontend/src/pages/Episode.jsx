@@ -3,49 +3,6 @@ import VideoPlayer from '../components/VideoPlayer';
 import { useParams, useLocation, useNavigate, Link } from 'react-router-dom';
 import Comment from '../components/Comment';
 
-const fakeComments = [
-  {
-    comment: "23:59 HOLY ****! Is that a JJK reference!???",
-    userId: 1,
-    username: "Jackie"
-  },
-  {
-    comment: "done on 28/11/24",
-    userId: 2,
-    username: "Asuna"
-  },
-  {
-    comment: "24:00 bro is mimicking gojo",
-    userId: 3,
-    username: "itz_cylina"
-  },
-  {
-    comment: "My boy nagi🔥",
-    userId: 4,
-    username: "Jin"
-  },
-  {
-    comment: "This is one of the best movie I have ever seen it looks like underrated way there is only 800 comments",
-    userId: 5,
-    username: "Hamza boss"
-  },
-  {
-    comment: "fire",
-    userId: 6,
-    username: "BalrajBali"
-  },
-  {
-    comment: "I guess this is where all of the budget of season 2 went",
-    userId: 7,
-    username: "JOICEJVARGHESE"
-  },
-  {
-    comment: "still better than Haikyu",
-    userId: 8,
-    username: "Anguished6"
-  },
-]
-
 export default function Episode() {
   const params = useParams();
   
@@ -183,45 +140,16 @@ export default function Episode() {
 
   return (
     <section className="text-white p-4">
-      <h1>Episode Name: <span className="font-semibold">{showEpisodes.currentEpisode.title}</span></h1>
+      <h1 className="text-lg">Episode Name: <span className="font-semibold">{showEpisodes.currentEpisode.title}</span></h1>
       
       {/* Episode Section */}
       <div className="flex flex-col md:flex-row bg-midnightBlue">
-        {/* Display a list of episodes */}
-        <div className="flex flex-col-reverse lg:flex-row w-full md:w-3/4">
-          <div className="flex flex-col w-full lg:w-72 h-[250px] lg:h-[500px] overflow-y-auto">
-            {
-              showEpisodes.allEpisodes.map((item, index) => (
-                <div key={item.episodeId}>
-                  {
-                    url === item.episodeId
-                    ? <Link to={`/anime/watch/${item.episodeId}`}>
-                      <button
-                          onClick={updateEpisode(item)}
-                          className="p-2 w-full text-left border-l-4 border-red-300 bg-blueViolet text-cyan"
-                        >
-                          <div className="flex items-center">{index + 1}. <div className="mx-4 truncate"> {item.title} </div></div>
-                        </button>
-                      </Link>
-                    : <Link to={`/anime/watch/${item.episodeId}`}>
-                        <button
-                          onClick={updateEpisode(item)}
-                          className="hover:bg-blueViolet hover:text-cyan p-2 w-full text-left bg-nearBlackIndigo"
-                        >
-                          <div className="flex items-center">{index + 1}. <div className="mx-4 truncate"> {item.title} </div></div>
-                        </button>
-                      </Link>
-                  }
-                </div>
-              ))
-            }
-          </div>
-          
-          {/* Video Player */}
-          <div className="w-full lg:w-4/6">
+        <div className="flex flex-col w-full">
+          <div className="md:p-8">
+            {/* Video Player */}
             {
               episodeStream.currentStream.sources && (
-                <div className="">
+                <div className="w-full xl:w-[1024px]">
                   <VideoPlayer
                     video={episodeStream.currentStream.sources[0].url}
                     captions={episodeStream.captions}
@@ -266,38 +194,58 @@ export default function Episode() {
                 }
               </div>
 
+              {/* List of Episodes Section */}
+              <div className="flex flex-wrap w-full gap-4 overflow-y-auto my-4 truncate">
+                {
+                  showEpisodes.allEpisodes.map((item, index) => (
+                    <div key={item.episodeId}>
+                      {
+                        url === item.episodeId
+                        ? <Link to={`/anime/watch/${item.episodeId}`}>
+                          <button
+                              onClick={updateEpisode(item)}
+                              className="p-2 w-full text-left border-l-4 border-red-300 bg-blueViolet text-cyan"
+                            >
+                              <div className="flex items-center">{index + 1}. <div className="mx-4 truncate"> {item.title} </div></div>
+                            </button>
+                          </Link>
+                        : <Link to={`/anime/watch/${item.episodeId}`}>
+                            <button
+                              onClick={updateEpisode(item)}
+                              className="hover:bg-blueViolet hover:text-cyan p-2 w-full text-left bg-nearBlackIndigo"
+                            >
+                              <div className="flex items-center">{index + 1}. <div className="mx-4 truncate"> {item.title} </div></div>
+                            </button>
+                          </Link>
+                      }
+                    </div>
+                  ))
+                }
+              </div>
             </div>
-          </div>
-        </div>
 
-        {/* Episode Information */}
-        <div className="flex flex-col gap-4 lg:flex md:w-2/6 p-2 bg-nearBlackIndigo">
-          <div className="w-2/6">
-            <img src={info.poster} alt="cover" className="object-cover w-40"/>
+            {/* Episode Information */}
+            <div className="flex flex-col md:flex-row gap-4 lg:flex p-2 md:p-0 md:mt-8 w-full">
+              <div className="w-full md:w-[300px]">
+                <img src={info.poster} alt="cover" className="object-cover w-full"/>
+              </div>
+              <div className="">
+                <h1 className="text-2xl lg:text-3xl font-bold mb-4">{info.name}</h1>
+                <p className="text-sm h-48 overflow-y-auto mr-0 md:mr-48">
+                  {info.description}
+                </p>
+              </div>
+            </div>
+
           </div>
-          <h1 className="text-2xl lg:text-3xl font-bold">{info.name}</h1>
-          <p className="text-sm h-48 overflow-y-auto">
-            {info.description}
-          </p>
         </div>
 
       </div>
 
       {/* Comment Section */}
       <h2 className="mt-4">Comments</h2>
-      <div className="mb-8 bg-midnightBlue w-full">
+      <div className="mb-8 bg-midnightBlue w-full p-2">
         <Comment />
-        {
-          fakeComments.map((c, index) => 
-            <div key={index} className="flex gap-4 my-8">
-              <img src="https://cdn.noitatnemucod.net/avatar/100x100/jujutsu_kaisen/File14.png" alt="profile" className="rounded-full w-16 h-16" />
-              <div className="flex flex-col">
-                <span className="text-sm font-bold mb-2">{c.username}</span>
-                <p className="text-lightGray">{c.comment}</p>
-              </div>
-            </div>
-          )
-        }
       </div>
       
     </section>
