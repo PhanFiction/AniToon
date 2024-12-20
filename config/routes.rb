@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get 'episodes/:id', to: 'animes#episodes'
       get 'genre/:id', to: 'animes#genre'
       get 'category/:id', to: 'animes#category'
+      post 'episodes/:id/comments', to: 'comments#create', as: :create_comment
     end
 
     resources :animes, path: 'anime', only: [:index] do
