@@ -7,10 +7,18 @@ export default function Paginate({ pages=1 }) {
   const url = location.pathname;
   const navigate = useNavigate();
 
-  const currentPage = location.search.split('=')[1];
+  let currentPage = location.search.split('='); // remove '=' from url
+  currentPage = currentPage[currentPage.length - 1]; // get last page number in the array
 
+  const query = location.pathname === '/anime/search' ? location.search.split("?query=")[1].split("&page=")[0] : '';
+
+  // Change the url to be the new page.
   const handlePageChange = (page) => {
-    navigate(`${url}?page=${page}`);
+    if (query !== '') {
+      navigate(`${url}?query=${query}&page=${page}`);
+    } else {
+      navigate(`${url}?page=${page}`);
+    }
   };
 
   return (
