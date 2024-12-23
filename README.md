@@ -2,7 +2,9 @@
 
 # To run the project locally 
 1. run bundle install
-2. rails db:create then rails db:migrate
+2. Follow instructions from https://github.com/ghoshRitesh12/aniwatch-api to create your own api
+3. Go to config/application.rb and replace $anitoon_api = ENV['ANITOON_API'] with your api environment variable
+4. Run rails db:create then rails db:migrate
 
 ## Future implementations
 1. Fix Captions for video not in sync
