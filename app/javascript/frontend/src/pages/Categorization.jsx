@@ -17,8 +17,7 @@ export default function Categorization() {
     const fetchCategory = async () => {
       const res = await fetch(`/api${entireUrl}`);
       const categoryData = await res.json();
-      // console.log(location.pathname, location.search);
-      // console.table(categoryData);
+      // console.log(location.pathname, location.search, entireUrl, categoryData);
       setLoading(false);
       location.pathname === '/anime/search' ? setCategory({...categoryData}) : setCategory({...categoryData.data});;
       if (categoryData.watch_list?.length > 0) setWatchList(categoryData.watch_list);
