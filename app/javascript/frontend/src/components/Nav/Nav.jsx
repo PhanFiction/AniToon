@@ -12,7 +12,7 @@ export default function Nav() {
   const [isSearchbarOpen, setToggleSearchbar] = useState(false);
   const [isSidebarOpen, setToggleSidebar] = useState(false);
   const [isDropDownOpen, setToggleDropDown] = useState(false);
-  const { user } = useFetchUser();
+  const { user, setUser } = useFetchUser();
   const { setAlertType, setAlertMessage } = useContext(AlertContext);
 
   // Toggle Searchbar function
@@ -36,7 +36,9 @@ export default function Nav() {
       if (response.ok) {
         // Clear the current user state
         // setCurrUser (null);
-        setUser([]);
+        setUser(null);
+        setAlertMessage('Successfully logged out');
+        setAlertType('success');
       } else {
         setAlertMessage('Failed to log out');
         setAlertType('error');
@@ -79,7 +81,7 @@ export default function Nav() {
               >
               <div className="py-1" role="none">
                 <Link to="/watchlist" className="block px-4 py-2 text-sm text-gray-700">Watch List</Link>
-                <a href="/account_settings" className="block px-4 py-2 text-sm text-gray-700">Account settings</a>
+                <a href="/users/edit" className="block px-4 py-2 text-sm text-gray-700">Account settings</a>
                 <button onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-700">
                   Logout
                 </button>
