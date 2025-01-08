@@ -30,7 +30,7 @@ function useFetchUser() {
     fetchUser();
   }, []);
 
-  return { user, error, loading };
+  return { user, setUser, error, loading };
 }
 
 export default useFetchUser;
