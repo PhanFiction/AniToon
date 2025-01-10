@@ -12,6 +12,8 @@
 - Sign in with Google
 - Log in and log out securely
 - Save anime
+- Watch anime
+- Search anime 
 
 ### Future plan
 
