@@ -6,11 +6,19 @@
 3. Go to config/application.rb and replace $anitoon_api = ENV['ANITOON_API'] with your api environment variable
 4. Run rails db:create then rails db:migrate
 
-## Future implementations
-1. Fix Captions for video not in sync
-2. Add feature to allow groups of people to stream anime together
-3. Add comment section for the anime
-4. Update homepage layout
+## Feature
+
+- Sign up and create a new account
+- Sign in with Google
+- Log in and log out securely
+- Save anime
+
+### Future plan
+
+- [ ] Add feature to allow groups of people to stream anime together
+- [ ] Add comment section for the anime
+- [ ] Update homepage layout
+- [ ] Add custom profile picture
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
