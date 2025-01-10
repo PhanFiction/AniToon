@@ -20,6 +20,13 @@
 - [ ] Update homepage layout
 - [ ] Add custom profile picture
 
+## Technology Used
+
+- Ruby on Rails
+- PostgreSQL
+- React.js
+- TailwindCSS
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
