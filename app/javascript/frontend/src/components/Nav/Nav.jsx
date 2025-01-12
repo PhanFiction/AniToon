@@ -35,7 +35,6 @@ export default function Nav() {
 
       if (response.ok) {
         // Clear the current user state
-        // setCurrUser (null);
         setUser([]);
       } else {
         setAlertMessage('Failed to log out');
@@ -100,7 +99,6 @@ export default function Nav() {
           <SearchBar />
         </div>
       }
-      
     </nav>
   )
 }
