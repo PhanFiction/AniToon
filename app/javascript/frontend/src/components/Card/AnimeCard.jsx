@@ -1,7 +1,6 @@
 import React from 'react';
 import { BsFillPlayCircleFill } from "react-icons/bs";
 
-
 export default function AnimeCard ({ showType="", backgroundImg="", title="" }) {
   return (
     <article className="w-full h-full group">
@@ -11,7 +10,7 @@ export default function AnimeCard ({ showType="", backgroundImg="", title="" }) 
           {/* Center Icon */}
           <BsFillPlayCircleFill className="h-[1.5em] w-[1.5em] absolute top-24 md:top-28 left-[53px] md:left-[4.7em] duration-300 opacity-0 group-hover:opacity-100 text-white"/>
         </div>
-        <img src={backgroundImg} alt={backgroundImg} className="w-full h-full object-cover rounded-md" />
+        <img src={backgroundImg} alt={backgroundImg} className="w-full h-full object-cover rounded-md" loading="lazy"/>
       </div>
       <p className="group-hover:text-red text-xs md:text-base font-medium duration-500 w-30 md:w-40 truncate">{title}</p>
     </article>
