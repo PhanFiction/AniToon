@@ -17,6 +17,7 @@ export default function Anime() {
     const fetchAnime = async () => {
       const data = await fetch(`/api${entireUrl}`);
       const animeData = await data.json();
+
       setLoading(false);
       setAnime({...animeData.data, bookmark: animeData.watch_list});
       if (animeData.watch_list?.length > 0) setBookmarked(true);
