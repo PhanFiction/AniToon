@@ -7,7 +7,7 @@ import { AlertContext } from '../../context';
 
 // Component needs to be refactored in the future. 
 // Component code is tightly coupled with bookmark.
-export default function AnimeItem({ item, bookmarked=[] }) {
+export default function AnimeItem({ item, bookmarked=[], user='' }) {
   const location = useLocation();
   const foundBookmark = bookmarked.find(bookmark => bookmark.anime_id === item.id); // Search bookmark by default
   const [isBookmarked, setBookmarked] = useState(location.pathname === '/watchlist' ? true : foundBookmark ? true : false); // set state to be true or false if bookmark exists
@@ -77,18 +77,22 @@ export default function AnimeItem({ item, bookmarked=[] }) {
       <Link to={`/anime/info?id=${location.pathname === '/watchlist' ? item.anime_id : item.id}`} className="flex w-32 h-52 md:w-44 lg:h-64 mb-8 z-10">
         <AnimeCard showType={item.showType} backgroundImg={item.poster} title={item.jname ? item.jname : item.name} />
       </Link>
-      <button 
-        className="absolute top-1 right-1 hover:cursor-pointer opacity-0 group-hover:opacity-100 bg-black/60 hover:text-red p-1 rounded-md" 
-        onClick={saveAnime}
-      >
-        {
-          isBookmarked
-          ?
-          <IoRemove className="opacity-0 duration-300 group-hover:opacity-100 rounded-md" />
-          :
-          <IoAdd className="opacity-0 duration-300 group-hover:opacity-100 rounded-md" />
-        }
-      </button>
+      {
+        user ?
+        <button 
+          className="absolute top-1 right-1 hover:cursor-pointer opacity-0 group-hover:opacity-100 bg-black/60 hover:text-red p-1 rounded-md"
+          onClick={saveAnime}
+        >
+          {
+            isBookmarked
+            ?
+            <IoRemove className="opacity-0 duration-300 group-hover:opacity-100 rounded-md" />
+            :
+            <IoAdd className="opacity-0 duration-300 group-hover:opacity-100 rounded-md" />
+          }
+        </button>
+        : null
+      }
     </div>
   )
 }

@@ -102,7 +102,6 @@ export default function Nav() {
           <SearchBar />
         </div>
       }
-      
     </nav>
   )
 }
