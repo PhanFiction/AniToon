@@ -22,7 +22,7 @@ export default function SearchBar() {
       if (query.length > QUERY_MIN_LENGTH) {
         const queryData = await fetch(`/api/anime/search_suggest?query=${query}`);
         const queryResult = await queryData.json();
-        setResult(queryResult.suggestions);
+        setResult(queryResult.data.suggestions);
         toggleRef.current.className = searchBarStyles['extend'];
       } else {
         toggleRef.current.className = searchBarStyles['hidden'];
