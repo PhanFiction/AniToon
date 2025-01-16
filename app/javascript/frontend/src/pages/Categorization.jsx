@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import Loading from '../components/Loading';
 import AnimeItem from '../components/Card/AnimeItem';
 import Paginate from '../components/Paginate';
+import LoadingCard from '../components/Loading/LoadingCard';
 
 export default function Categorization() {
   const location = useLocation();
@@ -13,16 +13,15 @@ export default function Categorization() {
   const abortController = new AbortController();
   const query = location.pathname === '/anime/search' ? location.search.split("?query=")[1].split("&page=")[0] : '';
 
+  // Fetch category
   useEffect(() => {
     const fetchCategory = async () => {
       const res = await fetch(`/api${entireUrl}`);
       const categoryData = await res.json();
-      // console.log(location.pathname, location.search, entireUrl, categoryData);
       setLoading(false);
-      location.pathname === '/anime/search' ? setCategory({...categoryData}) : setCategory({...categoryData.data});;
+      setCategory({...categoryData.data});
       if (categoryData.watch_list?.length > 0) setWatchList(categoryData.watch_list);
     }
-    
     fetchCategory();
     
     return () => {
@@ -30,6 +29,14 @@ export default function Categorization() {
       abortController.abort();
     };
   }, [location.pathname, location.search]);
+
+  function fakeLoadCards() {
+    return (
+      Array.from({length: 5}).map((_, i) => (
+        <LoadingCard key={i} />
+      ))
+    )
+  }
 
   return (
     <section className="p-2 md:p-4">
@@ -43,7 +50,7 @@ export default function Categorization() {
             <div className="flex flex-wrap justify-center gap-4">
               {
                 loading
-                ? <Loading />
+                ? fakeLoadCards()
                 : currentCategory.animes && currentCategory?.animes.map(item =>
                   <AnimeItem item={item} key={item.id} bookmarked={watchList}/>
                 )
@@ -61,7 +68,7 @@ export default function Categorization() {
           <div className="flex flex-wrap justify-center gap-4">
             {
               loading
-              ? <Loading />
+              ? fakeLoadCards()
               : currentCategory.animes && currentCategory?.animes.map(item =>
                 <AnimeItem item={item} key={item.id} bookmarked={watchList}/>
               )
