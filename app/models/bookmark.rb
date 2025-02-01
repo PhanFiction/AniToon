@@ -4,7 +4,7 @@ class Bookmark < ApplicationRecord
   validates :anime_id, presence: true
   validates :name, presence: true
 
-  scope :find_bookmark, ->(user_id, anime_id = nil) {
+  scope :find_bookmark, ->(user_id = nil, anime_id = nil) {
     bookmarks = Bookmark.where(user_id: user_id)
     bookmarks = bookmarks.where(anime_id: anime_id) if anime_id.present?
     bookmarks
