@@ -54,7 +54,7 @@ function Home() {
             loading ? <p>Loading</p> :
             homeData.spotlightAnimes.map(item => 
               <SwiperSlide key={item.id}>
-                <div className="w-full h-full relative">
+                <div className="w-full h-full relative hover:cursor-pointer">
                   <div className="flex flex-col gap-4 w-full lg:w-1/2 absolute bottom-0 bg-darkBluePurple p-4 opacity-90">
                     <h1 className="text-md md:text-2xl font-bold">{item.name}</h1>
                     <p className="hidden md:block md:w-4/5 h-30 text-sm overflow-hidden my-4">{item.description.slice(0, 425)}...</p>
@@ -107,7 +107,7 @@ function Home() {
           {
             homeData.trendingAnimes.map(item =>
               <SwiperSlide key={item.id}>
-                <div className="w-full h-full relative">
+                <div className="w-full h-full relative hover:cursor-pointer">
                   <div className="flex flex-col gap-4 w-full absolute bottom-0 bg-darkBluePurple p-4 opacity-90">
                     <h1 className="text-md md:text-lg font-bold">{item.name}</h1>
                     <div className="flex gap-4">
