@@ -75,10 +75,10 @@ export default function Nav() {
             </button>
             <div
               className={`${isDropDownOpen ? 'block' : 'hidden'} absolute right-0 z-10 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
-              >
+            >
               <div className="py-1" role="none">
                 <Link to="/watchlist" className="block px-4 py-2 text-sm text-gray-700">Watch List</Link>
-                <a href="/account_settings" className="block px-4 py-2 text-sm text-gray-700">Account settings</a>
+                <a href="/users/edit" className="block px-4 py-2 text-sm text-gray-700">Account settings</a>
                 <button onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-700">
                   Logout
                 </button>
