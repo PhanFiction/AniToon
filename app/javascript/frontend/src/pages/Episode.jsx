@@ -32,8 +32,8 @@ export default function Episode() {
   // Fetch episode and episode information on initial render
   useEffect(() => {
     const fetchEpisode = async () => {
-      const episodes = await fetch(`/api/anime/episodes/${params.id}`);
-      const animeInfo = await fetch(`/api/anime/info?id=${params.id}`);
+      const episodes = await fetch(`/api/anime/episodes/${params.id}`); // Fetch episodes from API
+      const animeInfo = await fetch(`/api/anime/info?id=${params.id}`); // Fetch anime info from
 
       const fetchedEpisodesData = await episodes.json();
       const animeInfoData = await animeInfo.json();
@@ -42,13 +42,13 @@ export default function Episode() {
       // console.log('fetched episodes is ', fetchedEpisodesData);
 
       // if the query in params is empty, update the url to have the episode id query
-      if (location.search === '') navigate(`/anime/watch/${fetchedEpisodesData.episodes[0].episodeId}`);
+      if (location.search === '') navigate(`/anime/watch/${fetchedEpisodesData.data.episodes[0].episodeId}`);
 
       // Save to states
       setInfo({...animeInfoData.data.info});
       setEpisodes({
-        allEpisodes: fetchedEpisodesData.episodes,
-        currentEpisode: { ...fetchedEpisodesData.episodes[0] }
+        allEpisodes: fetchedEpisodesData.data.episodes,
+        currentEpisode: { ...fetchedEpisodesData.data.episodes[0] }
       });
       
       // Set button background to selected one 
@@ -62,29 +62,31 @@ export default function Episode() {
     const abortController = new AbortController();
 
     const fetchEpisodeData = async () => {
-      // console.log(params.id, location.search, url)
       const episodeServer = await fetch(`/api/anime/episode_server?id=${showEpisodes.currentEpisode.episodeId}`);
+      
+      // In the future, this needs to switch between hd-1, hd-2, etc if one of the followings do not work.
+      // Fetch episode based on anime_id, server name: 'hd-1' and server type: 'sub'
       const streamServer = await fetch(`/api/anime/episode?id=${url}&server=${activeSubServer.serverName !== '' ? activeSubServer.serverName : activeDubServer.serverName}&category=${activeSubServer.serverType !== '' ? activeSubServer.serverType : activeDubServer.serverType}`);
-
+      
       const episodeServerData = await episodeServer.json();
       const streamServerData = await streamServer.json();
 
       // Get subtitles from data and convert to React Player captions.
       // Bug with library where the captions will disappear after selecting the next video.
       // The only option is to have one track which is english by default.
-      const defaultSubtitles = await streamServerData.tracks.find(item => item.label === 'English');
+      const defaultSubtitles = await streamServerData.data.tracks.find(item => item.label === 'English');
       const subtitles = [{
-        kind: defaultSubtitles.kind,
-        src: defaultSubtitles.file,
-        srcLang: defaultSubtitles.label,
-        default: defaultSubtitles.default,
+        kind: defaultSubtitles.kind ? defaultSubtitles.kind: [],
+        src: defaultSubtitles.file ? defaultSubtitles.file : [],
+        srcLang: defaultSubtitles.label ? defaultSubtitles.label : [],
+        default: defaultSubtitles.default ? defaultSubtitles.default : [],
         label: "English"
       }];
 
       // Save episodes server and streams in state
       setEpisodeStream({
-        allServers: episodeServerData,
-        currentStream: { ...streamServerData },
+        allServers: episodeServerData.data,
+        currentStream: { ...streamServerData.data },
         captions: subtitles
       });
 
@@ -94,7 +96,7 @@ export default function Episode() {
         //selectedEpisodenRef.current[0].className = colors["selected"];
       }
 
-      console.log('All Server data is ', episodeServerData);
+      // console.log('All Server data is ', episodeServerData);
       // console.log('Stream is ', streamServerData);
     }
     if (showEpisodes.currentEpisode) fetchEpisodeData();
@@ -119,7 +121,7 @@ export default function Episode() {
    * @param {*} serverType: 'Sub' 
    */
   const handleServerSwitch = (index, serverId, serverName, serverType) => {
-    console.log(index);
+    // console.log(index);
     if (serverType === 'sub') {
       setActiveSubServer({serverName, serverType, serverId})
       setActiveDubServer({serverName: '', serverType: '', serverId: ''})
@@ -227,19 +229,17 @@ export default function Episode() {
             {/* Episode Information */}
             <div className="flex flex-col md:flex-row gap-4 lg:flex p-2 md:p-0 md:mt-8 w-full">
               <div className="w-full md:w-[300px]">
-                <img src={info.poster} alt="cover" className="object-cover w-full"/>
+                <img src={info.poster} alt="cover" className="object-cover"/>
               </div>
-              <div className="">
+              <div className="md:w-2/4">
                 <h1 className="text-2xl lg:text-3xl font-bold mb-4">{info.name}</h1>
-                <p className="text-sm h-48 overflow-y-auto mr-0 md:mr-48">
+                <p className="text-sm h-48 overflow-y-auto md:h-auto mr-0">
                   {info.description}
                 </p>
               </div>
             </div>
-
           </div>
         </div>
-
       </div>
 
       {/* Comment Section */}
